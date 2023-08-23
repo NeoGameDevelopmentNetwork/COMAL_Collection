@@ -1,0 +1,8 @@
+BREAK             032f
+CRLF              0322
+GETCH             1e5a
+INKIM             0300
+OUTCH             1ea0
+OUTKIM            0310
+XSAVE             0400
+YSAVE             0401

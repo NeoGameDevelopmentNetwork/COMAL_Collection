@@ -1,0 +1,40 @@
+0001   0000             ; KIM-1 Comal patch routines
+0002   0000             ;
+0003   0000             ; Hans Otten, June 2023
+0004   0000             ;
+0005   0300             		.ORG $0300
+0006   0300             
+0007   0300             GETCH   = $1E5A             ; GETCH (serial, with hardware echo)
+0008   0300             OUTCH   = $1EA0             ; OUTCH (serial)
+0009   0300             XSAVE	= $0400
+0010   0300             YSAVE	= $0401
+0011   0300             ;
+0012   0300 8E 00 04    INKIM	STX XSAVE
+0013   0303 8C 01 04    		STY YSAVE
+0014   0306 20 5A 1E    		JSR GETCH
+0015   0309 AE 00 04    		LDX XSAVE
+0016   030C AC 01 04    		LDY YSAVE
+0017   030F 60          		RTS
+0018   0310             ;	
+0019   0310 8D 00 04    OUTKIM  STA XSAVE
+0020   0313 8C 01 04    		STY YSAVE
+0021   0316 48          		PHA
+0022   0317 20 A0 1E    		JSR OUTCH
+0023   031A AE 00 04    		LDX XSAVE
+0024   031D AC 01 04    		LDY YSAVE
+0025   0320 68          		PLA
+0026   0321 60          		RTS
+0027   0322             ;		
+0028   0322 48          CRLF	PHA
+0029   0323 A9 0D       		LDA #$0D 		; CR
+0030   0325 20 10 03    		JSR OUTKIM
+0031   0328 A9 0A       		LDA #$0A		; LF 
+0032   032A 20 10 03    		JSR OUTKIM
+0033   032D 68          		PLA
+0034   032E 60          		RTS
+0035   032F             
+0036   032F             BREAK	
+0037   032F 60          		RTS
+0038   0330             
+0039   0330             .END
+tasm: Number of errors = 0
